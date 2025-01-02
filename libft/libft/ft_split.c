@@ -5,100 +5,89 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tleister <tleister@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 14:38:53 by tleister          #+#    #+#             */
-/*   Updated: 2024/10/21 12:23:00 by tleister         ###   ########.fr       */
+/*   Created: 2024/10/10 09:30:50 by tleister          #+#    #+#             */
+/*   Updated: 2025/01/02 13:32:19 by tleister         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	countwords(const char *s, char c)
+static int	getwordamount(const char *s, char c)
 {
+	int	newword;
 	int	counter;
-	int	i;
 
-	i = 0;
+	newword = 0;
 	counter = 0;
-	while (s[i] != 0)
-	{
-		if (s[i] == c && i > 0)
-			if (s[i - 1] != c)
-				counter++;
-		i++;
-	}
-	if (s[0] == 0 || s[i - 1] == c)
-		return (counter);
-	return (counter + 1);
-}
-
-static void	wordlengt(const char *s, char c, int *numbers)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (s[i] != 0)
-	{
-		if (s[i] != c)
-			numbers[j]++;
-		else if (i > 0)
+	if (s != NULL)
+		while (*s != 0)
 		{
-			if (s[i - 1] != c)
-				j++;
-		}
-		i++;
-	}
-}
-
-static char	**copysplit(const char *s, char c, char **dstr)
-{
-	int	i;
-	int	j;
-	int	k;
-
-	k = 0;
-	i = 0;
-	j = 0;
-	while ((size_t)k < ft_strlen(s))
-	{
-		while (s[k] != c && s[k] != 0)
-			dstr[i][j++] = s[k++];
-		if (((s[k] == c || s[k] == 0) && k > 0))
-		{
-			if (s[k - 1] != c)
+			if (*s != c)
+				newword = 1;
+			if (*s == c && newword == 1)
 			{
-				dstr[i++][j] = 0;
-				j = 0;
+				newword = 0;
+				counter++;
 			}
+			s++;
 		}
-		k++;
+	return (counter + newword);
+}
+
+static char	*getword(char const *s, char c, int index)
+{
+	char	*str;
+	int		counter;
+
+	counter = 0;
+	while (*s == c)
+		s++;
+	while (index != 0)
+	{
+		s++;
+		if (*s != c && *(s - 1) == c)
+			index--;
 	}
-	return (dstr);
+	while (s[counter] != '\0' && s[counter] != c)
+		counter++;
+	str = malloc((counter + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	counter = 0;
+	while (s[counter] != '\0' && s[counter] != c)
+	{
+		str[counter] = s[counter];
+		counter++;
+	}
+	str[counter] = '\0';
+	return (str);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
-	int		j;
-	char	**dstr;
-	int		*numbers;
+	int		wordcount;
+	char	**res;
+	int		wordamount;
 
-	dstr = malloc((countwords(s, c) + 1) * sizeof(char *));
-	numbers = ft_calloc(countwords(s, c), sizeof(int));
-	if (dstr == 0 || numbers == 0)
-		return (0);
-	wordlengt(s, c, numbers);
-	i = 0;
-	j = 0;
-	while (i < countwords(s, c))
+	wordamount = getwordamount(s, c);
+	wordcount = 0;
+	res = malloc(sizeof(char *) * (wordamount + 1));
+	if (res == NULL)
+		return (NULL);
+	while (wordcount < wordamount)
 	{
-		dstr[i] = malloc(numbers[i] + 1);
-		if (dstr[i] == 0)
-			return (0);
-		i++;
+		res[wordcount] = getword(s, c, wordcount);
+		if (res[wordcount] == NULL)
+		{
+			while (wordcount >= 0)
+			{
+				free(res[wordcount]);
+				wordcount--;
+			}
+			return (free(res), NULL);
+		}
+		wordcount++;
 	}
-	dstr[i] = 0;
-	free(numbers);
-	return (copysplit(s, c, dstr));
+	res[wordcount] = 0;
+	return (res);
 }
