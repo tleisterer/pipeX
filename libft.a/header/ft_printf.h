@@ -6,12 +6,13 @@
 /*   By: tleister <tleister@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:38:46 by tleister          #+#    #+#             */
-/*   Updated: 2024/11/15 12:59:33 by tleister         ###   ########.fr       */
+/*   Updated: 2025/01/02 10:29:48 by tleister         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# include "../get_next_line/get_next_line_bonus.h"
 # include "../libft/libft.h"
 # include <stdarg.h>
 # include <unistd.h>
@@ -48,6 +49,6 @@ int		ft_putchar_count(char c);
 int		ft_putptr_count(unsigned long long nb, char *base);
 
 // void	printflags(t_flags *flags);
-int	fd_putchar(char chr, int nb);
-int	ft_putstr(char *chr, int nb);
+int		fd_putchar(char chr, int nb);
+int		ft_putstr(char *chr, int nb);
 #endif

@@ -6,7 +6,7 @@
 /*   By: tleister <tleister@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:43:39 by tleister          #+#    #+#             */
-/*   Updated: 2024/11/05 11:36:55 by tleister         ###   ########.fr       */
+/*   Updated: 2025/01/02 10:34:08 by tleister         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*get_next_line(int fd)
 		if (byte_read == -1)
 			return (ft_free(&buffer[fd]), ft_free(&temp));
 		temp[byte_read] = 0;
-		buffer[fd] = ft_strjoin(buffer[fd], temp);
+		buffer[fd] = ft_gnl_strjoin(buffer[fd], temp);
 		if (!buffer[fd])
 			return (ft_free(&temp));
 	}

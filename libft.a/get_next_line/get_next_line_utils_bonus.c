@@ -6,26 +6,13 @@
 /*   By: tleister <tleister@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:51:57 by tleister          #+#    #+#             */
-/*   Updated: 2024/11/05 11:37:20 by tleister         ###   ########.fr       */
+/*   Updated: 2025/01/02 10:35:11 by tleister         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	num;
-
-	num = 0;
-	while (*str)
-	{
-		str++;
-		num++;
-	}
-	return (num);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_gnl_strjoin(char *s1, char *s2)
 {
 	char	*temp;
 	size_t	i;
@@ -50,24 +37,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	temp[i + j] = '\0';
 	free(s1);
 	return (temp);
-}
-
-char	*ft_strchr(char *s, int c)
-{
-	int	counter;
-
-	if (!s)
-		return (0);
-	counter = 0;
-	while (s[counter])
-	{
-		if (s[counter] == (char)c)
-			return (s + counter);
-		counter++;
-	}
-	if (s[counter] == (char)c)
-		return (s + counter);
-	return (0);
 }
 
 char	*ft_free(char **str)
