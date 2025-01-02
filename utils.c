@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tleister <tleister@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 09:52:50 by tleister          #+#    #+#             */
-/*   Updated: 2025/01/02 11:56:41 by tleister         ###   ########.fr       */
+/*   Created: 2025/01/02 11:11:15 by tleister          #+#    #+#             */
+/*   Updated: 2025/01/02 11:44:40 by tleister         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/wait.h>
-# include <unistd.h>
-
-void	ft_error(char *str);
-
-typedef struct s_fds
+void	ft_error(char *str)
 {
-	int	infile;
-	int	outfile;
-	int	pipefds[2];
-}		t_fds;
+	int	fd;
 
-#endif
+	fd = open("error", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	dup2(fd, STDERR_FILENO);
+	close(fd);
+	perror(str);
+	exit(EXIT_FAILURE);
+}
