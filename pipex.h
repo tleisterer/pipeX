@@ -6,13 +6,14 @@
 /*   By: tleister <tleister@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 09:52:50 by tleister          #+#    #+#             */
-/*   Updated: 2025/01/02 11:56:41 by tleister         ###   ########.fr       */
+/*   Updated: 2025/01/02 13:33:01 by tleister         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# include "libft/header/ft_printf.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -21,6 +22,7 @@
 # include <unistd.h>
 
 void	ft_error(char *str);
+void	free_split(char **input);
 
 typedef struct s_fds
 {

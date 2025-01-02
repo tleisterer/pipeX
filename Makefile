@@ -1,6 +1,6 @@
 NAME  = pipex
 
-MY_SRCS = main.c
+MY_SRCS = main.c utils.c
 
 MY_OBJS = $(MY_SRCS:.c=.o)
 
@@ -15,9 +15,9 @@ all: $(NAME)
 
 $(NAME): $(MY_OBJS)
 	@printf "Compiling libft..."
-	@make -C libft
+	@make -s -C libft
 	@printf "$(GREEN) Done\n$(END)"
-		@printf "Compiling $(NAME)..."
+	@printf "Compiling $(NAME)..."
 	@cc $(MY_OBJS) libft/libftprintf.a -o $(NAME)
 	@printf "$(GREEN) Done\n$(END)"
 

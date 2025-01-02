@@ -6,7 +6,7 @@
 /*   By: tleister <tleister@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:11:15 by tleister          #+#    #+#             */
-/*   Updated: 2025/01/02 11:44:40 by tleister         ###   ########.fr       */
+/*   Updated: 2025/01/02 13:31:39 by tleister         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,17 @@ void	ft_error(char *str)
 	close(fd);
 	perror(str);
 	exit(EXIT_FAILURE);
+}
+
+void	free_split(char **input)
+{
+	int	counter;
+
+	counter = 0;
+	while (input[counter] != NULL)
+	{
+		free(input[counter]);
+		counter++;
+	}
+	free(input);
 }
